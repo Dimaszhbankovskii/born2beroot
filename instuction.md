@@ -11,6 +11,7 @@
 > - [Greating a New Group](#new_group)
 > - [Creating a New User and assign into group](#new_user)
 > - [Configuring sudoers group](#sudoers)
+> - [Deletion users and groups](#del)
 ## 1. <a name="installation"></a>Installation
 ## 2. <a name="configuration"></a>Configuration
 ### <a name="installing_sudo"></a>2.1. Installing sudo
@@ -287,3 +288,22 @@ Defaults        secure_path="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/
 ```
 ![image](https://user-images.githubusercontent.com/84144634/141363542-b1f5ca15-e981-4379-9ffb-ea062eb8856f.png)
 
+### <a name="del"></a>2.10. Deletion users and groups
+Delete user (-r - delete home directory and user's files):
+```
+$ sudo userdel -r user_name
+```
+Delete group:
+```
+$ sudo groupdel group_name
+```
+### <a name="del"></a>2.10. Crontab configuration
+Install the netstat tools (need for script monitoring.sh)
+```
+$ sudo apt-get update -y
+$ sudo apt-get install -y net-tools
+```
+Open crontab and add the rule (- u user (specific user) ; - e (editing or creating the current schedule)):
+```
+sudo crontab -u root -e
+```
