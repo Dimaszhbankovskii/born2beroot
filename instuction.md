@@ -12,6 +12,7 @@
 > - [Creating a New User and assign into group](#new_user)
 > - [Configuring sudoers group](#sudoers)
 > - [Deletion users and groups](#del)
+> - [Crontab configuration](#crontab)
 ## 1. <a name="installation"></a>Installation
 ## 2. <a name="configuration"></a>Configuration
 ### <a name="installing_sudo"></a>2.1. Installing sudo
@@ -297,7 +298,7 @@ Delete group:
 ```
 $ sudo groupdel group_name
 ```
-### <a name="del"></a>2.10. Crontab configuration
+### <a name="crontab"></a>2.11. Crontab configuration
 Install the netstat tools (need for script monitoring.sh)
 ```
 $ sudo apt-get update -y
@@ -306,4 +307,12 @@ $ sudo apt-get install -y net-tools
 Open crontab and add the rule (- u user (specific user) ; - e (editing or creating the current schedule)):
 ```
 sudo crontab -u root -e
+```
+To schedule a shell script to run every 10 minutes, replace below line
+```
+23 */10 * * * * sh /path/to/script
+```
+Check crontab
+```
+sudo crontab -u root -l
 ```
