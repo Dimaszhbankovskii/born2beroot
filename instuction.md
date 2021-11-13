@@ -13,6 +13,7 @@
 > - [Configuring sudoers group](#sudoers)
 > - [Deletion users and groups](#del)
 > - [Crontab configuration](#crontab)
+> - [Change hostname (!!!This is for when you defend!!!)](#host)
 ## 1. <a name="installation"></a>Installation
 ## 2. <a name="configuration"></a>Configuration
 ### <a name="installing_sudo"></a>2.1. Installing sudo
@@ -315,4 +316,26 @@ To schedule a shell script to run every 10 minutes, replace below line
 Check crontab
 ```
 sudo crontab -u root -l
+```
+### <a name="host"></a>2.12. Change hostname (!!!This is for when you defend!!!)
+Check current hostname
+```
+$ hostnamectl
+```
+Change the hostname
+```
+$ hostnamectl set-hostname new_hostname
+```
+Change /etc/hosts file
+```
+$ sudo nano /etc/hosts
+```
+Change old_hostname with new_hostname:
+```
+127.0.0.1       localhost
+127.0.0.1       new_hostname
+```
+Reboot and check the change
+```
+$ sudo reboot
 ```
