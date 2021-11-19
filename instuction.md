@@ -23,8 +23,8 @@ $ su -
 ```
 Install sudo
 ```
-$ apt-get update -y
-$ apt-get upgarde -y
+$ apt update -y
+$ apt upgarde -y
 $ apt install sudo
 ```
 Add user in sudo group
@@ -42,14 +42,14 @@ $ sudo visudo
 ```
 Add this line in file:
 ```
-your_username ALL=(ALL) ALL
+your_username ALL=(ALL:ALL) ALL
 ```
 ### <a name="installing_tools"></a>2.2. Installing tools
 Installing git
 ```
-$ apt-get update -y
-$ apt-get upgrade -y
-$ apt-get install git -y
+$ apt update -y
+$ apt upgrade -y
+$ apt install git -y
 ```
 Check git version
 ```
@@ -57,16 +57,16 @@ git --version
 ```
 Installing wget (wget is a free and open source tool for downloading files from web repositories.)
 ```
-$ sudo apt-get install wget
+$ sudo apt install wget
 ```
 Installing Vim
 ```
-$ sudo apt-get install vim
+$ sudo apt install vim
 ```
 ### <a name="install_ssh"></a>2.3. Installing SSH and configuring SSH service
 Installing
 ```
-$ sudo apt-get update
+$ sudo apt update
 $ sudo apt install openssh-server
 ```
 Check the SSH server status
@@ -108,7 +108,7 @@ $ sudo service ssh restart
 ### <a name="ufw"></a>2.4. Installing and configuring UFW (Uncomplicated Firewall)
 Install UFW
 ```
-$ sudo apt-get install ufw
+$ sudo apt install ufw
 ```
 Enable
 ```
@@ -179,7 +179,7 @@ To send user a warning message 7 days (defaults to 7 anyway) before password exp
 #### Password Strangth
 Installing password quality checking library (libpam-pwquality):
 ```
-$ sudo apt-get install libpam-pwquality
+$ sudo apt install libpam-pwquality
 ```
 Verify whether libpam-pwquality was successfully installed
 ```
@@ -187,7 +187,7 @@ $ dpkg -l | grep libpam-pwquality
 ```
 Configure password strength policy nano ```sudo vi /etc/pam.d/common-password```, specifically the below line:
 ```
-$ sudo vi /etc/pam.d/common-password
+$ sudo nano /etc/pam.d/common-password
 <~~~>
 25 password        requisite                       pam_pwquality.so retry=3
 <~~~>
@@ -256,6 +256,14 @@ Check if password rules working in users:
 ```
 $ sudo chage -l your_new_username
 ```
+Change max days for "change password" of user:
+```
+chage -M 30 name_user
+```
+Change min days for "change password" of user:
+```
+chage -m 2 name_user
+```
 ### <a name="sudoers"></a>2.9. Configuring sudoers group
 Make dir ```/var/lod/sudo```
 Go to file:
@@ -302,8 +310,8 @@ $ sudo groupdel group_name
 ### <a name="crontab"></a>2.11. Crontab configuration
 Install the netstat tools (need for script monitoring.sh)
 ```
-$ sudo apt-get update -y
-$ sudo apt-get install -y net-tools
+$ sudo apt update -y
+$ sudo apt install -y net-tools
 ```
 Open crontab and add the rule (- u user (specific user) ; - e (editing or creating the current schedule)):
 ```
