@@ -20,17 +20,17 @@ LVMu=$(if [ $LVM -eq 0 ]; then echo "no"; else echo "yes"; fi)
 connectTCP=$(cat /proc/net/sockstat{,6} | grep "TCP:" | awk '{print $3}')
 user_log=$(users | wc -w)
 ip=$(hostname -I)
-MACadress=$(ip linl show | grep "link/ether" | awk '{print $2}')
+MACadress=$(ip likl show | grep "link/ether" | awk '{print $2}')
 n_cmd=$(journalctl _COMM=sudo -q | grep "COMMAND" | wc -l)
-wall "#architecture: ${arch}
-      #CPU physical: ${numCPUphys}
-      #vCPU: ${numCPUvirt}
-      #Memory Usage: ${used_ram}/${total_ram}MB (${k_used_ram}%)
-      #Disk Usage: ${used_disk}/${total_disk}Gb (${k_used_disk}%)
-      #CPU load: ${CPU_load}%
-      #Last boot: ${last_boot}
-      #LVM use: ${LVMu}
-      #Connecxions TCP: ${connectTCP} ESTABLISHED
-      User log: ${user_log}
-      #Network: IP $ip (${MACadress})
-      #Sudo: ${n_cmd} cmd"
+wall "      #architecture: ${arch}
+            #CPU physical: ${numCPUphys}
+            #vCPU: ${numCPUvirt}
+            #Memory Usage: ${used_ram}/${total_ram}MB (${k_used_ram}%)
+            #Disk Usage: ${used_disk}/${total_disk}Gb (${k_used_disk}%)
+            #CPU load: ${CPU_load}%
+            #Last boot: ${last_boot}
+            #LVM use: ${LVMu}
+            #Connecxions TCP: ${connectTCP} ESTABLISHED
+            #User log: ${user_log}
+            #Network: IP $ip (${MACadress})
+            #Sudo: ${n_cmd} cmd"
