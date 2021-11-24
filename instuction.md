@@ -446,3 +446,42 @@ $ sudo ls -l /var/log/sudo/
 $ sudo cat /var/log/sudo/sudo.log
 ```
 ### UFW
+1. Check that the "UFW" program is properly installed on the virtual machine
+```
+$ dpkg -l | grep ufw
+```
+2. Check that UFW is working properly
+```
+$ sudo ufw status numbered
+```
+3. List the active rules in UFW. A rule must exist for port 4242
+```
+$ sudo ufw status numbered
+```
+4. Add a new rule to open port 8080. Check that this one has been added by listing the active rules
+```
+$ sudo ufw allow 8080
+$ sudo ufw status numbered
+```
+5. Delete this new rule
+```
+$ sudo ufw delete (number of rule)
+$ sudo ufw status numbered
+```
+### SSH
+1. Check that the SSH service is properly installed on the virtual machine
+```
+$ dpkg -l | grep ssh
+```
+2. Check that SSH is working properly
+```
+$ sudo service ssh status
+```
+3. Verify that the SSH service only uses port 4242
+```
+$ sudo grep Port /etc/ssh/sshd_config
+```
+4. Connect with SSH in new user
+```
+$ ssh user_name@127.0.0.1 -p 4242
+```
