@@ -230,6 +230,7 @@ Check if group created:
 $ getent group
 ```
 ### <a name="new_user"></a>2.8. Creating a New User and assign into group
+All users are stored in file */etc/passwd*<br>
 Check the all local users:
 ```
 $ cut -d: -f1 /etc/passwd
