@@ -14,6 +14,7 @@
 > - [Deletion users and groups](#del)
 > - [Crontab configuration](#crontab)
 > - [Change hostname (!!!This is for when you defend!!!)](#host)
+> 3. [Defense of Mandatory part](#defense_mandatory)
 ## 1. <a name="installation"></a>Installation
 ## 2. <a name="configuration"></a>Configuration
 ### <a name="installing_sudo"></a>2.1. Installing sudo
@@ -185,7 +186,7 @@ Verify whether libpam-pwquality was successfully installed
 ```
 $ dpkg -l | grep libpam-pwquality
 ```
-Configure password strength policy nano ```sudo vi /etc/pam.d/common-password```, specifically the below line:
+Configure password strength policy nano ```sudo nano /etc/pam.d/common-password```, specifically the below line:
 ```
 $ sudo nano /etc/pam.d/common-password
 <~~~>
@@ -348,3 +349,100 @@ Reboot and check the change
 ```
 $ sudo reboot
 ```
+## 3. <a name="defense_mandatory"></a>Defense of Mandatory part
+### Simple setup<br>
+1. Check that the UFW service is started
+```
+$ sudo ufw status numbered
+```
+2. Check that the SSH service is started
+```
+$ sudo service sshd status
+```
+Check that the chosen operating system is Debian or CentOS
+```
+$ uname -a
+```
+### User
+1. Check that a user with the login of the student being evaluated is present on the virtual machine.<br>
+Check that it has been added and that it belongs to the "sudo" and "user42" groups
+```
+$ cat /etc/passwd
+$ groups user_name
+```
+2. Check the password policy<br>
+2.1. Create a new user "user_eval"
+```
+$ sudo adduser user_eval
+```
+2.2. Check files of the password policy
+```
+$ sudo nano /etc/login.defs
+$ sudo nano /etc/pam.d/common-password
+```
+2.3. Create a new group named "evaluating"
+```
+$ sudo addgroup evaluating
+```
+2.4. Assign group "evaluating" to "user_eval"
+```
+$ sudo usermod -aG evaluating name_eval
+```
+2.5. Check that "user_eval" belongs to the "evaluating" group
+```
+$ getent group evaluating
+```
+### Hostname and partitions
+1. Check that the hostname of the machine is correctly formatted as follows: login42
+```
+$ hostnamectl
+```
+2. Modify hostname
+2.1. Change the hostname
+```
+$ hostnamectl set-hostname evalhost
+```
+2.2. Change "/etc/hosts" file
+```
+$ sudo nano /ets/hosts
+```
+2.3. Change old_hostname with new_hostname:
+```
+127.0.0.1       localhost
+127.0.0.1       new_hostname
+```
+2.4. Reboot and check the change
+```
+$ sudo reboot
+```
+2.5. Check changes
+```
+$ hostnamectl
+```
+3. Check the partitions for this virtual machine
+```
+$ lsblk
+```
+### SUDO
+1. Chech "sudo" is installed
+```
+$ dpkg -l | grep sudo
+```
+2. Show assign new user to the "sudo" group
+```
+$ sudo usermod -aG sudo user_name
+```
+3. Show exaples of using "sudo"
+```
+$ sudo addgroup test1
+$ sudo groupdel test1
+```
+4. Check folder `"/var/log/sudo"` exist and has at least one file
+```
+$ sudo ls -l /var/log/sudo/
+```
+5. Check contents of the files in this folder, history of the commands used with sudo
+```
+$ sudo cat /var/log/sudo/sudo.log
+```
+### UFW
